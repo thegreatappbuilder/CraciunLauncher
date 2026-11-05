@@ -264,7 +264,7 @@ class MainActivity : Activity() {
         drawerTitle = label(20f, bold = true).apply { setPadding(dp(6), 0, 0, dp(10)) }
         drawer.addView(drawerTitle)
         search = EditText(this).apply {
-            hint = "🔍  Caută o aplicație…"
+            setHint("🔍  Caută o aplicație…")
             setSingleLine()
             setTextColor(Color.WHITE)
             setHintTextColor(0xAAFFFFFF.toInt())
