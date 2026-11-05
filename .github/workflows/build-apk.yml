@@ -4,6 +4,9 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,7 +21,16 @@ jobs:
           echo "sdk.dir=$ANDROID_HOME" > local.properties
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon --stacktrace
+          cp app/build/outputs/apk/debug/app-debug.apk TemeDeCraciun.apk
       - uses: actions/upload-artifact@v4
         with:
           name: TemeDeCraciun-apk
-          path: app/build/outputs/apk/debug/*.apk
+          path: TemeDeCraciun.apk
+      - name: Publica APK-ul pentru descarcare directa
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Teme de Craciun (ultima versiune)
+          body: Descarca TemeDeCraciun.apk de mai jos si deschide-l pe telefon.
+          files: TemeDeCraciun.apk
+          make_latest: true
